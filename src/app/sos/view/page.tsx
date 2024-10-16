@@ -82,19 +82,32 @@ export default function ViewSOS () {
 
     // update images in 10 seconds
     useEffect(() => {
-        // Function to be executed every 10 seconds
-        const intervalId = setInterval(() => {
+        const intervalId = setInterval(async () => {
+            try {
+                const res = await axios.get(server_url + "/api/v1/ticket", {params: {ticketId, firebaseUID}});
+                const newTicketData: ticketData = res.data.data.ticket;
 
-             getTicketDetails().then(() => {
-                 console.log("Images updated")
-             })
+                // Avoid multiplying images by ensuring they are unique
+                setTicketData(prevTicketData => {
+                    if (!prevTicketData) return newTicketData;
 
+                    const updatedImages = Array.from(new Set([...prevTicketData.images, ...newTicketData.images]));
 
-        }, 1000); // 10000 milliseconds = 10 seconds
+                    return {
+                        ...newTicketData,
+                        images: updatedImages, // Only keep unique images
+                    };
+                });
 
-        // Cleanup function to clear the interval on component unmount
+                console.log("Images updated");
+            } catch (e) {
+                console.error("Error updating ticket details:", e);
+            }
+        }, 10000); // 10000 milliseconds = 10 seconds
+
         return () => clearInterval(intervalId);
-    }, []); // Empty dependency array to run once on mount
+    }, [ticketId, firebaseUID]); // Dependencies for ticketId and firebaseUID to ensure they are used correctly.
+
 
     if (!ticketId || !firebaseUID) {
 
