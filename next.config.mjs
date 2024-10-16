@@ -2,7 +2,7 @@
 const nextConfig = {
     images : {
         remotePatterns: [
-            {hostname: "apis.mappls.com", protocol: "https"}
+            {hostname: "**", protocol: "https"}
         ]
     },
     experimental : {

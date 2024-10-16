@@ -4,6 +4,7 @@ import axios from "axios";
 import {useSearchParams} from "next/navigation";
 import {useEffect, useState} from "react";
 import MapTest from "@/app/sos/view/map";
+import Image from "next/image";
 
 
 type emergencyContact = {
@@ -35,7 +36,9 @@ type ticketData = {
     ticketId: string,
     firebaseUID: string,
     status : string,
-    locationInfo : locationData[]
+    locationInfo : locationData[],
+    images : string[],
+    audioClips : string[],
 }
 
 type resData = {
@@ -77,12 +80,24 @@ export default function ViewSOS () {
         setLoading(false)
     })
 
+    // update images in 10 seconds
+    useEffect(() => {
+        // Function to be executed every 10 seconds
+        const intervalId = setInterval(() => {
+
+             getTicketDetails().then(() => {
+                 console.log("Images updated")
+             })
+
+
+        }, 1000); // 10000 milliseconds = 10 seconds
+
+        // Cleanup function to clear the interval on component unmount
+        return () => clearInterval(intervalId);
+    }, []); // Empty dependency array to run once on mount
+
     if (!ticketId || !firebaseUID) {
-        return <section id={"error"}>
-            <div className={'flex w-full h-screen items-center justify-center'}>
-                <h1 className={"text-2xl"}>Invalid Request</h1>
-            </div>
-        </section>
+
     }
 
     if (getRequestFailed) {
@@ -125,17 +140,33 @@ export default function ViewSOS () {
 
     return (
     <section id={"welcome"}>
-        <div className={'p-2 lg:p-1 w-full h-max'}>
+        <div className={'py-2  lg:p-1 w-full h-max'}>
             <div className={""}>
                 <h1><span className={'font-bold'}>SOS Request ID</span> : {ticketData?.ticketId}</h1>
                 <h1><span className={'font-bold'}>Ticket Status : </span><span className={ticketData?.status === "active" ? 'text-green-600' : ''} >{ticketData?.status}</span></h1>
                 <h1><span className={'font-bold'}>Viewing Location of :</span> {userData?.displayName}</h1>
             </div>
-            <MapTest location={locationData.slice(-1)?.pop()} updateFunction={fetchLatestLocation} userInfo={userData} />
+            <div className={"lg:mx-20 lg:my-10"}>
+                <MapTest location={locationData.slice(-1)?.pop()} updateFunction={fetchLatestLocation} userInfo={userData} />
+            </div>
 
+        </div>
+        <div className={"my-10 py-2"}>
+            <ImagesView files={ticketData?.images || []}  />
         </div>
     </section>
     )
+}
 
 
+function ImagesView({files}: {files: string[]}) {
+    return (
+        <ul role="list" className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
+            {files.map((file) => (
+                <li key={file} className="col-span-1">
+                        <Image height={1000} width={1000} src={file} alt="IMAGE NOT LOADED" className="object-cover pointer-events-none group-hover:opacity-75 aspect-video" />
+                </li>
+            ))}
+        </ul>
+    )
 }
