@@ -57,6 +57,8 @@ export default function ViewSOS () {
     const [locationData, setLocationData] = useState<locationData[]>([])
     const [loading, setLoading] = useState<boolean>(true);
     const server_url = process.env.SERVER_URL || "https://surakshakawach-mobilebackend-192854867616.asia-south2.run.app";
+    const [activeTab, setActiveTab] = useState(1);
+
 
     async function getTicketDetails() {
         try {
@@ -152,32 +154,108 @@ export default function ViewSOS () {
     }
 
     return (
-    <section id={"welcome"}>
-        <div className={'py-2  lg:p-1 w-full h-max'}>
-            <div className={""}>
-                <h1><span className={'font-bold'}>SOS Request ID</span> : {ticketData?.ticketId}</h1>
-                <h1><span className={'font-bold'}>Ticket Status : </span><span className={ticketData?.status === "active" ? 'text-green-600' : ''} >{ticketData?.status}</span></h1>
-                <h1><span className={'font-bold'}>Viewing Location of :</span> {userData?.displayName}</h1>
-            </div>
-            <div className={"lg:mx-20 lg:my-10"}>
-                <MapTest location={locationData.slice(-1)?.pop()} updateFunction={fetchLatestLocation} userInfo={userData} />
+        <section id={"welcome"} className={""}>
+
+            <div className={'py-2  lg:p-1 w-full h-max'}>
+                <div className={""}>
+                    <h1><span className={'font-bold'}>SOS Request ID</span> : {ticketData?.ticketId}</h1>
+                    <h1><span className={'font-bold'}>Ticket Status : </span><span
+                        className={ticketData?.status === "active" ? 'text-green-600' : ''}>{ticketData?.status}</span>
+                    </h1>
+                    <h1><span className={'font-bold'}>Viewing Location of :</span> {userData?.displayName}</h1>
+                </div>
+
+
             </div>
 
-        </div>
-        <div className={"my-10 py-2"}>
-            <ImagesView files={ticketData?.images || []}  />
-        </div>
-    </section>
+            <div className="border-b border-gray-200 dark:border-neutral-700 ">
+                <nav className="flex gap-x-1" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
+                    <button type="button"
+                            className="font-bold text-lg py-4 px-1 inline-flex items-center gap-x-2 border-b-2 border-transparent whitespace-nowrap  hover:text-blue-600 focus:outline-none focus:text-blue-600 disabled:opacity-50 disabled:pointer-events-none  dark:hover:text-blue-500"
+                            id="tabs-with-underline-item-1" aria-selected="true" data-hs-tab="#tabs-with-underline-1"
+                            onClick={() => setActiveTab(1)}
+                            aria-controls="tabs-with-underline-1" role="tab">
+                        Location
+                    </button>
+                    <button type="button"
+                            className="font-bold text-lg py-4 px-1 inline-flex items-center gap-x-2 border-b-2 border-transparent whitespace-nowrap  hover:text-blue-600 focus:outline-none focus:text-blue-600"
+                            id="tabs-with-underline-item-2" aria-selected="false" data-hs-tab="#tabs-with-underline-2"
+                            onClick={() => setActiveTab(2)}
+                            aria-controls="tabs-with-underline-2" role="tab">
+                        Images
+                    </button>
+                    <button type="button"
+                            className="font-bold text-lg py-4 px-1 inline-flex items-center gap-x-2 border-b-2 border-transparent whitespace-nowrap  hover:text-blue-600 focus:outline-none focus:text-blue-600 "
+                            id="tabs-with-underline-item-3" aria-selected="false" data-hs-tab="#tabs-with-underline-3"
+                            onClick={() => setActiveTab(3)}
+                            aria-controls="tabs-with-underline-3" role="tab">
+                        Audio
+                    </button>
+                </nav>
+            </div>
+
+            {/*Data of Tabs*/}
+            <div className="mt-3">
+                <div hidden={activeTab !== 1} id="tabs-with-underline-1" role="tabpanel"
+                     aria-labelledby="tabs-with-underline-item-1">
+                    <div className={"lg:mx-20 lg:my-10"}>
+                        <MapTest location={locationData.slice(-1)?.pop()} updateFunction={fetchLatestLocation}
+                                 userInfo={userData}/>
+                    </div>
+                </div>
+                <div hidden={activeTab !== 2} id="tabs-with-underline-2" className="" role="tabpanel"
+                     aria-labelledby="tabs-with-underline-item-2">
+                    <div className={"my-10 py-2"}>
+                        <ImagesView files={ticketData?.images || []}/>
+                    </div>
+                </div>
+                <div hidden={activeTab !== 3} id="tabs-with-underline-3 " className="" role="tabpanel"
+                     aria-labelledby="tabs-with-underline-item-3">
+                    <div className={"my-10 py-2"}>
+                        <AudioClipsView files={ticketData?.audioClips || []}/>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
     )
 }
 
 
-function ImagesView({files}: {files: string[]}) {
+function ImagesView({files}: { files: string[] }) {
+
+    if (!files.length) {
+        return <>No Images yet!</>
+    }
+
     return (
-        <ul role="list" className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
+        <ul role="list"
+            className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
             {files.map((file) => (
                 <li key={file} className="col-span-1">
-                        <Image height={1000} width={1000} src={file} alt="IMAGE NOT LOADED" className="object-cover pointer-events-none group-hover:opacity-75 aspect-video" />
+                    <Image height={1000} width={1000} src={file} alt="IMAGE NOT LOADED"
+                           className="object-cover pointer-events-none group-hover:opacity-75 aspect-video"/>
+                </li>
+            ))}
+        </ul>
+    )
+}
+
+
+function AudioClipsView({files}: { files: string[] }) {
+
+    if (!files.length) {
+        return <>No Clips!</>
+    }
+
+    return (
+        <ul role="list"
+            className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
+            {files.map((file) => (
+                <li key={file} className="col-span-1">
+                    <audio src={file}
+                           className="object-cover pointer-events-none group-hover:opacity-75 aspect-video"/>
                 </li>
             ))}
         </ul>
