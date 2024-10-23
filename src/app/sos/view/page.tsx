@@ -251,11 +251,13 @@ function AudioClipsView({files}: { files: string[] }) {
 
     return (
         <ul role="list"
-            className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
-            {files.map((file) => (
-                <li key={file} className="col-span-1">
-                    <audio src={file}
-                           className="object-cover pointer-events-none group-hover:opacity-75 aspect-video"/>
+            className="grid grid-cols-1 gap-x-4 gap-y-4  xl:gap-x-8">
+            {files.map((file, i) => (
+                <li key={file} className="flex col-span-1">
+                    <p>Recording {i + 1}</p>
+                    <audio controls={true} className="pl-10 object-cover group-hover:opacity-75 aspect-square">
+                        <source src={file} type="audio/mp3"/>
+                    </audio>
                 </li>
             ))}
         </ul>
