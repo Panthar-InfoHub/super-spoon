@@ -1,7 +1,7 @@
 import { AdvancedMarker, APIProvider, Map } from '@vis.gl/react-google-maps';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-const GoogleMapTest = ({ location, updateFunction, userInfo }) => {
+const GoogleMapTest = React.memo(({ location, updateFunction, userInfo }) => {
     const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY; // Replace with your actual Google Maps API key
 
     const [mapLoaded, setMapLoaded] = useState(false);
@@ -11,22 +11,22 @@ const GoogleMapTest = ({ location, updateFunction, userInfo }) => {
     }
 
 
-    // useEffect(() => {
-    //     // Function to handle updates every 10 seconds
-    //     const intervalId = setInterval(() => {
-    //         updateFunction().then((newLocation) => {
-    //             if (newLocation?.coordinates) {
-    //                 const isEqual = JSON.stringify(location) === JSON.stringify(newLocation);
+    useEffect(() => {
+        // Function to handle updates every 10 seconds
+        const intervalId = setInterval(() => {
+            updateFunction().then((newLocation) => {
+                if (newLocation?.coordinates) {
+                    const isEqual = JSON.stringify(location) === JSON.stringify(newLocation);
 
-    //                 if (!isEqual) {
-    //                     setMarkerPosition(newLocation.coordinates);
-    //                 }
-    //             }
-    //         });
-    //     }, 10000); // Update every 10 seconds
+                    if (!isEqual) {
+                        setMarkerPosition(newLocation.coordinates);
+                    }
+                }
+            });
+        }, 10000); // Update every 10 seconds
 
-    //     return () => clearInterval(intervalId); // Cleanup on unmount
-    // }, [location, updateFunction]);
+        return () => clearInterval(intervalId); // Cleanup on unmount
+    }, [location, updateFunction]);
 
     return (
         <APIProvider apiKey={apiKey} onLoad={() => setMapLoaded(true)} region='IN' >
@@ -48,6 +48,6 @@ const GoogleMapTest = ({ location, updateFunction, userInfo }) => {
             </Map>
         </APIProvider>
     );
-};
+});
 
 export default GoogleMapTest;

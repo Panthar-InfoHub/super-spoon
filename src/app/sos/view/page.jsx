@@ -142,7 +142,7 @@ export default function ViewSOS() {
 
             <div className="mt-3">
                 <div hidden={activeTab !== 1}>
-                    <div className="lg:mx-20 lg:my-10">
+                    <div className="lg:mx-20 lg:my-10 h-screen">
                         <MapComponent location={locationData?.slice(-1)[0]} userInfo={userData} />
                     </div>
                 </div>
