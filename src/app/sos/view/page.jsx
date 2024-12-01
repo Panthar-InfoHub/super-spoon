@@ -16,7 +16,7 @@ export default function ViewSOS() {
     const [loading, setLoading] = useState(true);
     const server_url = process.env.SERVER_URL || "https://surakshakawach-mobilebackend-192854867616.asia-south2.run.app";
     const [activeTab, setActiveTab] = useState(1);
-    
+
 
     async function getTicketDetails() {
         const res = result;
@@ -94,11 +94,12 @@ export default function ViewSOS() {
 
     async function fetchLatestLocation() {
         try {
-            const res = await axios.get(`${server_url}/api/v1/ticket/latest-update`, {
-                params: { ticketId, firebaseUID },
-            });
-            const data = res.data.data.locationInfo;
-            console.log(res.data);
+            // const res = await axios.get(`${server_url}/api/v1/ticket/latest-update`, {
+            //     params: { ticketId, firebaseUID },
+            // });
+            // const data = res.data.data.locationInfo;
+            const res = result;
+            const data = res.data;
             setLocationData(prev => {
                 prev.push(data);
                 return prev;
@@ -142,8 +143,8 @@ export default function ViewSOS() {
 
             <div className="mt-3">
                 <div hidden={activeTab !== 1}>
-                    <div className="lg:mx-20 lg:my-10 h-screen">
-                        <MapComponent location={locationData?.slice(-1)[0]} userInfo={userData} />
+                    <div className="h-[70vh]">
+                        <MapComponent location={locationData?.slice(-1)[0]} userInfo={userData} updateFunction={fetchLatestLocation} />
                     </div>
                 </div>
                 <div hidden={activeTab !== 2}>
