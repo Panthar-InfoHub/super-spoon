@@ -1,5 +1,6 @@
 "use client";
 import MapComponent from "@/app/sos/view/map";
+import { AudioView, ImageView } from "@/app/sos/view/ImageView";
 import axios from "axios";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
@@ -111,12 +112,12 @@ export default function ViewSOS() {
         <section id="welcome">
 
             <div className="relative">
-                <div className="h-screen w-screen relative">
+                <div className="h-screen w-screen relative overflow-hidden">
                     <MapComponent location={locationData?.slice(-1)[0]} userInfo={userData} updateFunction={fetchLatestLocation} />
-                    <UserInfo userInfo={userData} />
+                    <UserInfo userInfo={userData} status={ticketData?.status} />
                     <div className="absolute left-4 top-5 min-h-screen flex flex-col gap-5" >
-                        <ImagesView files={ticketData?.images || []} />
-                        <AudioClipsView files={ticketData?.audioClips || []} />
+                        <ImageView files={ticketData?.images || []} />
+                        <AudioView files={ticketData?.audioClips || []} />
                     </div>
                 </div>
             </div>
@@ -124,7 +125,7 @@ export default function ViewSOS() {
     );
 }
 
-const UserInfo = ({ userInfo }) => {
+const UserInfo = ({ userInfo, status }) => {
     const [pfpImg, setpfpImg] = useState("");
 
     async function getProfileImage() {
@@ -145,59 +146,10 @@ const UserInfo = ({ userInfo }) => {
             <div className="pr-2 pl-4 py-2 bg-[#242424] text-white rounded-l-full " >
                 <h3 className="font-semibold" > {userInfo.displayName} </h3>
             </div>
-            <div>
+            <div className="relative" >
                 <Image src={pfpImg} alt="profile" width={50} height={50} className="rounded-full" />
+                <span className={` w-4 h-4 absolute top-0 right-[-1%] rounded-full ${status === "active" ? "bg-green-400" : "bg-red-500"} `} />
             </div>
         </div>
     )
-}
-
-const ImagesView = ({ files }) => {
-
-    if (!files.length) {
-        return <>No Images yet!</>;
-    }
-
-    return (
-        <div className="p-6 pt-4 flex flex-col rounded-xl bg-white " >
-            <div>
-                <h3 className="font-semibold text-xl mb-4" > Emergency Image </h3>
-            </div>
-
-            <div className="pb-3 border-b-2 border-b-black mb-3" >
-                <Image src={files[0]} width={325} height={100} alt="IMAGE NOT LOADED" className="object-cover pointer-events-none group-hover:opacity-75 rounded-xl aspect-video" />
-            </div>
-            <ul className={`grid gap-5 ${files.length === 1 ? "grid-cols-1" : "grid-cols-2"}`}>
-                {files.map(file => (
-                    <li key={file} className="rounded-xl relative ">
-                        <Image src={file} width={125} height={125} alt="IMAGE NOT LOADED" className="object-cover pointer-events-none group-hover:opacity-75 rounded-xl aspect-square" />
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
-}
-
-const AudioClipsView = ({ files }) => {
-    if (!files.length) {
-        return <>No Clips!</>;
-    }
-
-    return (
-        <div className="p-6 pt-4 flex flex-col rounded-xl bg-white gap-4" >
-            <div>
-                <h3 className="font-semibold text-xl text-center" > Audio </h3>
-            </div>
-
-            <div className="flex flex-col gap-4" >
-                {files.map((file, i) => (
-                    <li key={i}>
-                        <audio controls={true} className="">
-                            <source src={file} type="audio/mp3" />
-                        </audio>
-                    </li>
-                ))}
-            </div>
-        </div>
-    );
 }
