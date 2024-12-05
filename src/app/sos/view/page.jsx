@@ -10,8 +10,8 @@ const server_url = process.env.SERVER_URL || "https://surakshakawach-mobilebacke
 
 export default function ViewSOS() {
     const params = useSearchParams();
-    const ticketId = params.get("ticketId") || 'ef8107d9-f38f-4afa-bff6-93152d3018bc';
-    const firebaseUID = params.get("firebaseUID") || 'u7TW7LzsjrZ8QkEPV2Ysa76JDJz1';
+    const ticketId = params.get("ticketId");
+    const firebaseUID = params.get("firebaseUID");
     const [getRequestFailed, setGetRequestFailed] = useState(false);
     const [userData, setUserData] = useState(undefined);
     const [ticketData, setTicketData] = useState(undefined);
@@ -116,8 +116,8 @@ export default function ViewSOS() {
                     <MapComponent location={locationData?.slice(-1)[0]} userInfo={userData} updateFunction={fetchLatestLocation} />
                     <UserInfo userInfo={userData} status={ticketData?.status} />
                     <div className="absolute left-4 top-5 min-h-screen flex flex-col gap-5" >
-                        <ImageView files={ticketData?.images || []} />
-                        <AudioView files={ticketData?.audioClips || []} />
+                        <ImageView files={[]} />
+                        <AudioView files={[]} />
                     </div>
                 </div>
             </div>
@@ -142,13 +142,15 @@ const UserInfo = ({ userInfo, status }) => {
         getProfileImage()
     }, []);
     return (
-        <div className="absolute right-5 top-6 flex items-center" >
-            <div className="pr-2 pl-4 py-2 bg-[#242424] text-white rounded-l-full " >
-                <h3 className="font-semibold" > {userInfo.displayName} </h3>
-            </div>
-            <div className="relative" >
-                <Image src={pfpImg} alt="profile" width={50} height={50} className="rounded-full" />
-                <span className={` w-4 h-4 absolute top-0 right-[-1%] rounded-full ${status === "active" ? "bg-green-400" : "bg-red-500"} `} />
+        <div className="absolute right-5 top-6 " >
+            <div className="flex items-center relative" >
+                <div className="pr-8 pl-4 py-2 bg-[#242424] text-white rounded-full  translate-x-7" >
+                    <h3 className="font-semibold" > {userInfo.displayName} </h3>
+                </div>
+                <div className="relative" >
+                    <Image src={pfpImg} alt="profile" width={50} height={50} className="rounded-full" />
+                    <span className={` w-4 h-4 absolute top-0 right-[-1%] rounded-full ${status === "active" ? "bg-green-400" : "bg-red-500"} `} />
+                </div>
             </div>
         </div>
     )
