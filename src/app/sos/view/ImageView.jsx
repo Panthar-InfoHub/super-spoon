@@ -18,7 +18,7 @@ export const ImageView = ({ files }) => {
                     </div>
 
                     <div className="pb-3 border-b-2 border-b-black mb-3" >
-                        <Image src={files[0]} width={325} height={100} alt="IMAGE NOT LOADED" className="object-cover pointer-events-none group-hover:opacity-75 rounded-xl aspect-video" />
+                        <Image src={files[0].url} width={325} height={100} alt="IMAGE NOT LOADED" className="object-cover pointer-events-none group-hover:opacity-75 rounded-xl aspect-video" />
                     </div>
                     <ScrollArea className="h-[150px]">
                         <ul className={`grid gap-5 rounded-md ${files.length === 1 ? "grid-cols-1" : "grid-cols-2"}`} >
@@ -27,10 +27,10 @@ export const ImageView = ({ files }) => {
                                 return (
                                     <>
                                         <div onClick={() => {
-                                            setImgData(file)
+                                            setImgData(file.url)
                                             setisPreview(true)
                                         }} className="cursor-pointer" >
-                                            <Image src={file} width={125} height={125} alt="IMAGE NOT LOADED" className="object-cover pointer-events-none group-hover:opacity-75 rounded-xl aspect-square !w-full" />
+                                            <Image src={file.url} width={125} height={125} alt="IMAGE NOT LOADED" className="object-cover pointer-events-none group-hover:opacity-75 rounded-xl aspect-square !w-full" />
                                         </div>
                                     </>
                                 )
@@ -43,7 +43,7 @@ export const ImageView = ({ files }) => {
                             setisPreview(false)
                         }} >
                             <div className=" min-h-[80%] w-[80%] rounded-xl relative" >
-                                <Image src={imgData} fill alt="IMAGE NOT LOADED"
+                                <Image src={imgData.url} fill alt="IMAGE NOT LOADED"
                                     className="object-cover pointer-events-none group-hover:opacity-75 rounded-xl aspect-video " />
                             </div>
                         </div>
@@ -68,7 +68,7 @@ export const AudioView = ({ files }) => {
                         {files.map(file => (
                             <li key={file}>
                                 <audio controls={true} className="">
-                                    <source src={file} type="audio/mp3" />
+                                    <source src={file.url} type="audio/mp3" />
                                 </audio>
                             </li>
                         ))}
