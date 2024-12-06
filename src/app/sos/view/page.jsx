@@ -116,8 +116,8 @@ export default function ViewSOS() {
                     <MapComponent location={locationData?.slice(-1)[0]} userInfo={userData} updateFunction={fetchLatestLocation} />
                     <UserInfo userInfo={userData} status={ticketData?.status} />
                     <div className="absolute left-4 top-5 min-h-screen flex flex-col gap-5" >
-                        <ImageView files={[]} />
-                        <AudioView files={[]} />
+                        <ImageView files={ticketData?.images || []} />
+                        <AudioView files={ticketData?.audioClips || []} />
                     </div>
                 </div>
             </div>
