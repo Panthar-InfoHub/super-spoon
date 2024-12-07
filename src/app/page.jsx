@@ -34,21 +34,14 @@ export default function Home() {
     },
   ]
 
-  const teams = [
-    { name: "Abhay Namdev" },
-    { name: "Abhishek Pal" },
-    { name: "Arqam Ahmad" },
-    { name: "Ankit Bose" },
-    { name: "Raj Diwedi" },
-    { name: "Gagandeep Singh" },
-  ]
-
   const socials = [
     { name: "Twitter", link: "https://x.com/pantharinfohub" },
     { name: "Linkedin", link: "https://www.linkedin.com/company/panthar-infohub/" },
     { name: "Facebook", link: "https://www.facebook.com/people/Panthar-Infohub/pfbid037e7G5wJ4EJU9peVhh5H5BR7gyx1DnxfES879yMtDzT21koiV8gQG9wHLq1EXpeNjl/" },
     { name: "Instagram", link: "https://www.instagram.com/panthar.infohub/" },
-  ]
+    { name: "connect@pantharinfohub.com", mailto: "mailto:connect@pantharinfohub.com" },
+  ];
+
   return (
     <section id={"welcome"}>
       <div className='flex w-full flex-col gap-10 relative pb-24'>
@@ -128,32 +121,65 @@ export default function Home() {
 
 
               {/* Last PArt */}
-              <div className="flex gap-24 flex-wrap" >
-
-                <div className="flex flex-col gap-8 flex-1" >
+              <div className="flex gap-24 flex-wrap">
+                <div className="flex flex-col gap-8 flex-1">
                   <div>
-                    <h3 className="font-semibold leading-[150%]  text-2xl" > Meet Our Team </h3>
+                    <h3 className="font-semibold leading-[150%] text-2xl">Meet Our Team</h3>
                   </div>
-                  <div className="flex flex-col gap-2" >
-                    {teams.map((member, index) => (
-                      <p key={index} >
-                        {member.name}
-                      </p>
-                    ))}
+                  <div className="flex flex-col gap-2">
+                    <p>
+                      Our team at Suraksha Kawach is composed of dedicated professionals who bring their expertise to
+                      ensure the success of our app:
+                    </p>
+                    <p>
+                      <a href="https://www.linkedin.com/in/abhay-namdev-2797b6252/" target="_blank" rel="noopener noreferrer"
+                         className="font-bold text-blue-500 hover:underline">
+                        Abhay Namdev
+                      </a>, the CEO & Founder, leads with vision and innovation.
+                      <a href="https://www.linkedin.com/in/abhishek-pal-940a5524b/" target="_blank" rel="noopener noreferrer"
+                         className="font-bold text-blue-500 hover:underline">
+                        Abhishek Pal
+                      </a>, CMO & Co-Founder, spearheads marketing strategies.
+                      <a href="https://linkedin.com/in/badenforcer" target="_blank" rel="noopener noreferrer"
+                         className="font-bold text-blue-500 hover:underline">
+                        Raj Dwivedi
+                      </a>, Fullstack Developer, builds reliable and scalable solutions.
+                      <a href="https://www.linkedin.com/in/gagan-deep-singh-666158238/" target="_blank" rel="noopener noreferrer"
+                         className="font-bold text-blue-500 hover:underline">
+                        Gagandeep Singh
+                      </a>, Fullstack Developer, ensures seamless app functionality.
+                      <a href="https://linkedin.com/in/ankitbose904" target="_blank" rel="noopener noreferrer"
+                         className="font-bold text-blue-500 hover:underline">
+                        Ankit Bose
+                      </a>, UI/UX Designer, crafts intuitive user experiences. Finally,
+                      <a href="https://linkedin.com/in/arqam365" target="_blank" rel="noopener noreferrer"
+                         className="font-bold text-blue-500 hover:underline">
+                        Arqam Ahmad Siddiqui
+                      </a>, Mobile Fullstack Developer, drives mobile app development with expertise.
+                    </p>
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-8 flex-1" >
+                <div className="flex flex-col gap-8 flex-1">
                   <div>
-                    <h3 className="font-semibold leading-[150%] text-2xl" > Find Us On Internet</h3>
+                    <h3 className="font-semibold leading-[150%] text-2xl">Find Us On Internet</h3>
                   </div>
-                  <div className="flex flex-col gap-2" >
+                  <div className="flex flex-col gap-2">
                     {socials.map((social, index) => (
-                      <Link key={index} href={social.link} className="underline" > {social.name} </Link>
+                        <p key={index}>
+                          {social.mailto ? (
+                              <a href={social.mailto} className="text-gray-500">
+                                {social.name}
+                              </a>
+                          ) : (
+                              <Link href={social.link} className="underline hover:underline">
+                                {social.name}
+                              </Link>
+                          )}
+                        </p>
                     ))}
                   </div>
                 </div>
-
               </div>
 
 
