@@ -1,11 +1,59 @@
+import { Timer } from "lucide-react";
+import TimerComp from "../components/Timer"
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
+
+  const benefits = [
+    { text: "Instant SOS Alerts" },
+    { text: "Real-Time Location Sharing" },
+    { text: "Voice Command Functionality" },
+    { text: "Offline Capability" },
+    { text: "Guardian Protection" },
+    { text: "AI-Powered Health Insights" },
+  ]
+
+  const working = [
+    {
+      heading: "Download & Register",
+      description: "Get started by downloading the app and registering your profile with simple steps."
+    },
+    {
+      heading: "Add Emergency Contacts",
+      description: "Add trusted contacts who will receive alerts and updates during emergencies."
+    },
+    {
+      heading: "Activate Safety Features",
+      description: "Use features like SOS alerts, voice activation, and real-time tracking to stay protected."
+    },
+    {
+      heading: "Stay Informed",
+      description: "AI-powered insights to monitor health and enhance overall safety."
+    },
+  ]
+
+  const teams = [
+    { name: "Abhay Namdev" },
+    { name: "Abhishek Pal" },
+    { name: "Arqam Ahmad" },
+    { name: "Ankit Bose" },
+    { name: "Raj Diwedi" },
+    { name: "Gagandeep Singh" },
+  ]
+
+  const socials = [
+    { name: "Twitter", link: "https://x.com/pantharinfohub" },
+    { name: "Linkedin", link: "https://www.linkedin.com/company/panthar-infohub/" },
+    { name: "Facebook", link: "https://www.facebook.com/people/Panthar-Infohub/pfbid037e7G5wJ4EJU9peVhh5H5BR7gyx1DnxfES879yMtDzT21koiV8gQG9wHLq1EXpeNjl/" },
+    { name: "Instagram", link: "https://www.instagram.com/panthar.infohub/" },
+  ]
   return (
     <section id={"welcome"}>
-      <div className='flex w-full h-screen flex-col gap-10 relative'>
-        <div className="absolute top-0 left-0" >
+      <div className='flex w-full flex-col gap-10 relative pb-24'>
+        <div className="absolute top-0 left-0 p-10" >
           <header>
-            <h3> SurakshaKawach </h3>
+            <Image src="/logo.png" width={85} height={55} alt="logo" />
           </header>
         </div>
 
@@ -13,67 +61,95 @@ export default function Home() {
 
           {/* first container */}
           <div className="h-screen w-full flex items-center justify-between " >
-            <div className="flex-[0.7]" >
-              <h3 className="font-semibold text-[5rem] leading-[110%] tracking-[-0.04rem] " > We create products that work, feel and sell</h3>
+            <div className="w-[70%]" >
+              <h3 className="font-semibold text-[5rem] leading-[110%] tracking-[-0.04rem] " > Suraksha Kawach App: Your Personal Safety Companion </h3>
             </div>
 
             <div>
-              EMAIL SERVICE
+              <div className="flex gap-4 items-center justify-center mb-3" >
+                <Timer />
+                <TimerComp />
+              </div>
+              <div className="border border-black rounded-xl p-4 flex flex-col gap-4" >
+                <p className="font-normal text-lg" > Be an Early Tester for Suraksha Kawach! </p>
+                <input type="text" placeholder="Email" className="py-3 px-2 bg-gray-200 placeholder:text-gray-500 rounded-xl outline-none w-full" />
+                <button className="btn py-3 rounded-xl transition-all duration-200" > Get Notified </button>
+
+                <div className="opacity-65" >
+                  <p> For more info, reach us at <br />
+                    <span> connect@pantharinfohub.com </span>
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 
           {/* Second Container */}
-          <div className="flex flex-col gap-28 w-[70%]" >
-            <div>
-              <p> Meanwhile, here's what we've been up to.</p>
+          <div className="flex flex-col gap-28 w-[90%]" >
+            <div className="flex flex-col gap-8" >
+              <p> At Suraksha Kawach, we’ve created a mobile app that prioritizes your safety and well-being, combining advanced technology with a user-friendly experience. Our app is designed to empower individuals by providing real-time emergency assistance and peace of mind, no matter where you are.</p>
+              <p className="opacity-70" > Your Safety, Our Priority.</p>
             </div>
 
-            <div className="w-[85%] flex flex-col gap-14 " >
+            <div className="w-[75%] flex flex-col gap-14  " >
 
 
-              <div className="flex gap-24" >
+              <div className="flex gap-24 flex-wrap" >
 
-                <div className="flex flex-col gap-8" >
+                <div className="flex flex-col gap-8 flex-1" >
                   <div>
-                    <h3 className="font-semibold leading-[150%] " > We created a highly differentiated primary care service for Loop Health, which is now a significant revenue channel in just 3 months of launch. </h3>
+                    <h3 className="font-semibold leading-[150%] text-2xl" > How It Works.</h3>
                   </div>
-                  <div>
-                    <p>We delivered a trustworthy health checkup as an acquisition channel, reinvented doctor consults to guide instead of prescribe, crafted a digital app that acts as a companion to your entire health journey, and conducted many crazy experiments that made it all possible — like prototyping a clinic with real patients and doctors in 15 days.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex flex-col gap-8" >
-                  <div>
-                    <h3 className="font-semibold leading-[150%] " > We crafted an intuitive self-serve platform for Headout to handle their post-COVID surge.</h3>
-                  </div>
-                  <div>
-                    <p>Headout quickly ramped up supply to meet their demand, and achieved 800% growth in one year, expanding to more continents, becoming EBIDTA profitable and raising a $42M Series B funding.</p>
+                  <div className="flex flex-col gap-3" >
+                    {working.map((work, index) => (
+                      <div key={index}>
+                        <p className="font-semibold text-lg" >{work.heading} :</p>
+                        <span className="ml-2" > {work.description} </span>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
+                <div className="flex flex-col gap-8 flex-1" >
+                  <div>
+                    <h3 className="font-semibold leading-[150%]  text-2xl" > Why Suraksha Kawach ?</h3>
+                  </div>
+
+                  <div className="flex flex-col gap-3" >
+                    {benefits.map((benefit, index) => (
+                      <p key={index} >
+                        {benefit.text}
+                      </p>
+                    ))}
+                  </div>
+                </div>
               </div>
 
 
               {/* Last PArt */}
-              <div className="flex gap-24" >
+              <div className="flex gap-24 flex-wrap" >
 
-                <div className="flex flex-col gap-8" >
+                <div className="flex flex-col gap-8 flex-1" >
                   <div>
-                    <h3 className="font-semibold leading-[150%] " > We created a highly differentiated primary care service for Loop Health, which is now a significant revenue channel in just 3 months of launch. </h3>
+                    <h3 className="font-semibold leading-[150%]  text-2xl" > Meet Our Team </h3>
                   </div>
-                  <div>
-                    <p>We delivered a trustworthy health checkup as an acquisition channel, reinvented doctor consults to guide instead of prescribe, crafted a digital app that acts as a companion to your entire health journey, and conducted many crazy experiments that made it all possible — like prototyping a clinic with real patients and doctors in 15 days.
-                    </p>
+                  <div className="flex flex-col gap-2" >
+                    {teams.map((member, index) => (
+                      <p key={index} >
+                        {member.name}
+                      </p>
+                    ))}
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-8" >
+                <div className="flex flex-col gap-8 flex-1" >
                   <div>
-                    <h3 className="font-semibold leading-[150%] " > We crafted an intuitive self-serve platform for Headout to handle their post-COVID surge.</h3>
+                    <h3 className="font-semibold leading-[150%] text-2xl" > Find Us On Internet</h3>
                   </div>
-                  <div>
-                    <p>Headout quickly ramped up supply to meet their demand, and achieved 800% growth in one year, expanding to more continents, becoming EBIDTA profitable and raising a $42M Series B funding.</p>
+                  <div className="flex flex-col gap-2" >
+                    {socials.map((social, index) => (
+                      <Link key={index} href={social.link} className="underline" > {social.name} </Link>
+                    ))}
                   </div>
                 </div>
 

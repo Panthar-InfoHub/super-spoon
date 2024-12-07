@@ -5,7 +5,23 @@
 ::-webkit-scrollbar {
   display: none;
 }
+@layer utilities{
 
+  .btn{
+    background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+    color: white;
+  }
+  .btn:hover{
+    background: linear-gradient(to right, #76befe 0%, #71f6fd 100%);
+  }
+  .textColor{
+    background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+    background-clip: text;
+    color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
 @layer base {
   :root {
     --background: 0 0% 100%;
