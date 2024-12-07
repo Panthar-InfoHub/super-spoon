@@ -1,12 +1,12 @@
 'use client'
 import { useState, useEffect } from 'react'
 
+const GLOBAL_END_TIME = "2024-12-22T00:00:00Z"
 const TimerComp = () => {
     const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
     useEffect(() => {
-        const targetDate = new Date();
-        targetDate.setDate(targetDate.getDate() + 15); // Set 15 days from now
+        const targetDate = new Date(GLOBAL_END_TIME);
 
         const updateTimer = () => {
             const now = new Date();

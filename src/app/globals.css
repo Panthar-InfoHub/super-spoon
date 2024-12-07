@@ -11,6 +11,10 @@
     background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
     color: white;
   }
+  .disAbleBtn{
+    background: linear-gradient(to right, #d7e8f7 0%, #daf8f9 100%);
+    color: white;
+  }
   .btn:hover{
     background: linear-gradient(to right, #76befe 0%, #71f6fd 100%);
   }

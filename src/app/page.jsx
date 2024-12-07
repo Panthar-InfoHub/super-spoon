@@ -1,5 +1,6 @@
 import { Timer } from "lucide-react";
 import TimerComp from "../components/Timer"
+import InputComp from "../components/InputComp"
 import Image from "next/image";
 import Link from "next/link";
 
@@ -57,23 +58,23 @@ export default function Home() {
           </header>
         </div>
 
-        <div className="flex flex-col justify-center px-10 items-start" >
+        <div className="flex flex-col justify-center px-10 items-start gap-16 sm:gap-0" >
 
           {/* first container */}
-          <div className="h-screen w-full flex items-center justify-between " >
-            <div className="w-[70%]" >
-              <h3 className="font-semibold text-[5rem] leading-[110%] tracking-[-0.04rem] " > Suraksha Kawach App: Your Personal Safety Companion </h3>
+          <div className="min-h-screen w-full flex items-center justify-between flex-wrap" >
+            <div className="md:w-[70%] w-full h-screen flex justify-center items-center" >
+              <h3 className="font-semibold leading-[110%] tracking-[-0.04rem] sm:text-[3rem] md:text-[4.5rem] text-[3rem]" > Suraksha Kawach App: Your Personal Safety Companion </h3>
             </div>
 
-            <div>
+            <div className="md:w-auto w-full" >
               <div className="flex gap-4 items-center justify-center mb-3" >
                 <Timer />
                 <TimerComp />
               </div>
               <div className="border border-black rounded-xl p-4 flex flex-col gap-4" >
-                <p className="font-normal text-lg" > Be an Early Tester for Suraksha Kawach! </p>
-                <input type="text" placeholder="Email" className="py-3 px-2 bg-gray-200 placeholder:text-gray-500 rounded-xl outline-none w-full" />
-                <button className="btn py-3 rounded-xl transition-all duration-200" > Get Notified </button>
+                <p className="font-light text-base" > Be an Early Tester for Suraksha Kawach! </p>
+
+                <InputComp />
 
                 <div className="opacity-65" >
                   <p> For more info, reach us at <br />
