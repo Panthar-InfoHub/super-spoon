@@ -18,21 +18,18 @@ export const ImageView = ({ files }) => {
                     </div>
 
                     <div className="pb-3 border-b-2 border-b-black mb-3" >
-                        <Image src={files[0]} width={325} height={100} alt="IMAGE NOT LOADED" className="object-cover pointer-events-none group-hover:opacity-75 rounded-xl aspect-video" />
+                        <Image src={files[0].url} width={325} height={100} alt="IMAGE NOT LOADED" className="object-cover pointer-events-none group-hover:opacity-75 rounded-xl aspect-video" />
                     </div>
                     <ScrollArea className="h-[150px]">
                         <ul className={`grid gap-5 rounded-md ${files.length === 1 ? "grid-cols-1" : "grid-cols-2"}`} >
                             {files.map((file, i) => {
-                                console.log(i, " --> ", file)
                                 return (
-                                    <>
-                                        <div onClick={() => {
-                                            setImgData(file)
-                                            setisPreview(true)
-                                        }} className="cursor-pointer" >
-                                            <Image src={file} width={125} height={125} alt="IMAGE NOT LOADED" className="object-cover pointer-events-none group-hover:opacity-75 rounded-xl aspect-square !w-full" />
-                                        </div>
-                                    </>
+                                    <div onClick={() => {
+                                        setImgData(file.url)
+                                        setisPreview(true)
+                                    }} key={i} className="cursor-pointer" >
+                                        <Image src={file.url} width={125} height={125} alt="IMAGE NOT LOADED" className="object-cover pointer-events-none group-hover:opacity-75 rounded-xl aspect-square !w-full" />
+                                    </div>
                                 )
                             })}
                         </ul>
@@ -44,7 +41,7 @@ export const ImageView = ({ files }) => {
                         }} >
                             <div className=" min-h-[80%] w-[80%] rounded-xl relative" >
                                 <Image src={imgData} fill alt="IMAGE NOT LOADED"
-                                    className="object-cover pointer-events-none group-hover:opacity-75 rounded-xl aspect-video " />
+                                    className="object-cover pointer-events-none group-hover:opacity-75 rounded-xl aspect-video " priority />
                             </div>
                         </div>
                     )}
@@ -65,10 +62,10 @@ export const AudioView = ({ files }) => {
 
                 <ScrollArea className="h-[100px]">
                     <ul className="flex flex-col gap-4" >
-                        {files.map(file => (
-                            <li key={file}>
+                        {files.map((file,i) => (
+                            <li key={i}>
                                 <audio controls={true} className="">
-                                    <source src={file} type="audio/mp3" />
+                                    <source src={file.url} type="audio/mp3" />
                                 </audio>
                             </li>
                         ))}
