@@ -9,9 +9,10 @@ import { useEffect, useState } from "react";
 const server_url = process.env.SERVER_URL || "https://surakshakawach-mobilebackend-192854867616.asia-south2.run.app";
 
 export default function ViewSOS() {
+
     const params = useSearchParams();
-    const ticketId = params.get("ticketId");
-    const firebaseUID = params.get("firebaseUID");
+    const ticketId = params.get("ticketId") || "f8abc3c5-5df1-4f37-ab4d-36cde179f7b6";
+    const firebaseUID = params.get("firebaseUID") || "u7TW7LzsjrZ8QkEPV2Ysa76JDJz1";
     const [getRequestFailed, setGetRequestFailed] = useState(false);
     const [userData, setUserData] = useState(undefined);
     const [ticketData, setTicketData] = useState(undefined);
