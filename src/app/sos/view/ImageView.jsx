@@ -24,6 +24,7 @@ export const ImageView = ({ files }) => {
                         <ul className={`grid gap-5 rounded-md ${files.length === 1 ? "grid-cols-1" : "grid-cols-2"}`} >
                             {files.map((file, i) => {
                                 return (
+
                                     <div onClick={() => {
                                         setImgData(file.url)
                                         setisPreview(true)

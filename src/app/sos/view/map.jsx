@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 const GoogleMapTest = React.memo(({ location, updateFunction, userInfo }) => {
 
-    const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+    const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "AIzaSyBl3KRCtkuyEndkgYZIQGdx28kqcIP_LVQ";
     const [mapLoaded, setMapLoaded] = useState(false);
     const [markerPosition, setMarkerPosition] = useState(location?.coordinates);
 
