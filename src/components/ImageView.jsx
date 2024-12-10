@@ -1,4 +1,4 @@
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea } from "./ui/scroll-area";
 
 import Image from "next/image";
 import { useState } from "react";
@@ -24,6 +24,7 @@ export const ImageView = ({ files }) => {
                         <ul className={`grid gap-5 rounded-md ${files.length === 1 ? "grid-cols-1" : "grid-cols-2"}`} >
                             {files.map((file, i) => {
                                 return (
+
                                     <div onClick={() => {
                                         setImgData(file.url)
                                         setisPreview(true)
@@ -60,9 +61,9 @@ export const AudioView = ({ files }) => {
                     <h3 className="font-semibold text-xl mb-4" > Audios </h3>
                 </div>
 
-                <ScrollArea className="h-[100px]">
+                <ScrollArea className="h-[120px]">
                     <ul className="flex flex-col gap-4" >
-                        {files.map((file,i) => (
+                        {files.map((file, i) => (
                             <li key={i}>
                                 <audio controls={true} className="">
                                     <source src={file.url} type="audio/mp3" />

@@ -81,7 +81,7 @@ export default function Home() {
           {/* Second Container */}
           <div className="flex flex-col gap-28 w-[90%]" >
             <div className="flex flex-col gap-8" >
-              <p> At Suraksha Kawach, we’ve created a mobile app that prioritizes your safety and well-being, combining advanced technology with a user-friendly experience. Our app is designed to empower individuals by providing real-time emergency assistance and peace of mind, no matter where you are.</p>
+              <p> At Suraksha Kawach, we've created a mobile app that prioritizes your safety and well-being, combining advanced technology with a user-friendly experience. Our app is designed to empower individuals by providing real-time emergency assistance and peace of mind, no matter where you are.</p>
               <p className="opacity-70" > Your Safety, Our Priority.</p>
             </div>
 
@@ -178,6 +178,7 @@ export default function Home() {
                           )}
                         </p>
                     ))}
+                    <Link href="mailto:connect@pantharinfohub.com" className="underline" > connect@pantharinfohub.com </Link>
                   </div>
                 </div>
               </div>
