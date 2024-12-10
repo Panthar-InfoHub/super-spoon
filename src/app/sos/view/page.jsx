@@ -1,5 +1,5 @@
 "use client";
-import MapComponent from "@/app/sos/view/map";
+import MapComponent from "./map";
 import { AudioView, ImageView } from "../../../components/ImageView";
 import axios from "axios";
 import Image from "next/image";
