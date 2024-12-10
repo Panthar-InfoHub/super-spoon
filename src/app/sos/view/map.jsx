@@ -40,7 +40,7 @@ const GoogleMapTest = React.memo(({ location, updateFunction, userInfo }) => {
             <Map
                 mapId='map_id'
                 reuseMaps={true}
-                mapTypeId='roadmap'
+                mapTypeId='hybrid'
                 renderingType='VECTOR'
                 style={{ width: '100%', height: '100vh' }}
                 defaultCenter={{ lat: markerPosition.latitude, lng: markerPosition.longitude }}
