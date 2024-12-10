@@ -120,16 +120,9 @@ export default function Home() {
               </div>
 
 
-<<<<<<< HEAD
-              {/* Last Part */}
-              <div className="flex gap-24 flex-wrap" >
-
-                <div className="flex flex-col gap-8 flex-1" >
-=======
               {/* Last PArt */}
               <div className="flex gap-24 flex-wrap">
                 <div className="flex flex-col gap-8 flex-1">
->>>>>>> 070c1220fca0bbf5ac7de32d135aa13ae693b6ef
                   <div>
                     <h3 className="font-semibold leading-[150%] text-2xl">Meet Our Team</h3>
                   </div>
