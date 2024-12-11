@@ -7,6 +7,7 @@ import { Drawer, DrawerContent, DrawerTrigger } from './ui/drawer';
 import { ScrollArea } from './ui/scroll-area';
 
 const MobileNav = ({ images, audios }) => {
+
     const snapPoints = [0.4, '355px', 1];
     const [snap, setSnap] = useState(snapPoints[0]);
     const [imgData, setImgData] = useState()
@@ -19,9 +20,9 @@ const MobileNav = ({ images, audios }) => {
 
             <Drawer open={openDrawer1} onOpenChange={setOpenDrawer1} snapPoints={snapPoints} activeSnapPoint={snap} setActiveSnapPoint={setSnap} >
                 <DrawerTrigger asChild>
-                    <div className='bg-[#d9d9d9] p-4 rounded-full cursor-pointer' > <ImageIcon /> </div>
+                    <div className='bg-[#d9d9d9] p-4 rounded-full cursor-pointer duration-200 transition-all ease-in-out hover:scale-[0.9] group' > <ImageIcon /> </div>
                 </DrawerTrigger>
-                <DrawerContent isPreview={isPreview}>
+                <DrawerContent>
                     {images.length > 0 ?
                         <div className='p-4' >
                             <div>
@@ -56,7 +57,9 @@ const MobileNav = ({ images, audios }) => {
                                     </div>
                                 </div>
                             )}
-                        </div> : (<h3 className="font-semibold" >No Images yet!</h3>)}
+                        </div> : <div className='p-4 min-h-[35rem]' >
+                            <h3 className="font-semibold text-center" >No Images yet!</h3>
+                        </div>}
                 </DrawerContent>
             </Drawer>
 
@@ -64,7 +67,7 @@ const MobileNav = ({ images, audios }) => {
 
             <Drawer open={openDrawer2} onOpenChange={setOpenDrawer2} snapPoints={snapPoints} activeSnapPoint={snap} setActiveSnapPoint={setSnap} >
                 <DrawerTrigger asChild>
-                    <div className='bg-[#d9d9d9] p-4 rounded-full cursor-pointer' > <Volume2 /> </div>
+                    <div className='bg-[#d9d9d9] p-4 rounded-full cursor-pointer duration-200 transition-all ease-in-out hover:scale-[0.9] group ' > <Volume2 /> </div>
                 </DrawerTrigger>
                 <DrawerContent>
                     {audios.length > 0 ?
@@ -84,7 +87,10 @@ const MobileNav = ({ images, audios }) => {
                                     ))}
                                 </ul>
                             </ScrollArea>
-                        </div > : (<h3 className="font-semibold" >No Audios yet!</h3>)}
+                        </div > : (
+                            <div className='p-4 min-h-[35rem]' >
+                                <h3 className="font-semibold text-center" >No Audios yet!</h3>
+                            </div>)}
                 </DrawerContent>
             </Drawer>
         </div>

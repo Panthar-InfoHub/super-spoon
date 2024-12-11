@@ -4,7 +4,7 @@ import { AudioView, ImageView } from "../../../components/ImageView";
 import axios from "axios";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import MobileNav from "../../../components/MobileNav";
 
 const server_url = process.env.SERVER_URL || "https://surakshakawach-mobilebackend-192854867616.asia-south2.run.app";
@@ -12,8 +12,8 @@ const server_url = process.env.SERVER_URL || "https://surakshakawach-mobilebacke
 export default function ViewSOS() {
 
     const params = useSearchParams();
-    const ticketId = params.get("ticketId");
-    const firebaseUID = params.get("firebaseUID");
+    const ticketId = params.get("ticketId") || "467f65a6-894d-4022-9fb1-3ce26d457593";
+    const firebaseUID = params.get("firebaseUID") || "u7TW7LzsjrZ8QkEPV2Ysa76JDJz1";
     const [getRequestFailed, setGetRequestFailed] = useState(false);
     const [userData, setUserData] = useState(undefined);
     const [ticketData, setTicketData] = useState(undefined);
@@ -22,14 +22,11 @@ export default function ViewSOS() {
 
 
     async function getTicketDetails() {
-        // const res = result;
-
         try {
             const { data: res } = await axios.get(server_url + "/api/v1/ticket", { params: { ticketId, firebaseUID } });
             setUserData(res.data?.user);
             setTicketData(res.data?.ticket);
             setLocationData(res.data?.ticket?.locationInfo);
-
         } catch (e) {
             setGetRequestFailed(true);
             console.error(e);
@@ -54,11 +51,22 @@ export default function ViewSOS() {
                 setTicketData(prevTicketData => {
                     if (!prevTicketData) return newTicketData;
 
-                    const updatedImages = Array.from(new Set([...prevTicketData.images, ...newTicketData.images]));
+                    const imagesMap = new Map();
+                    const audiosMap = new Map();
+                    [...prevTicketData.images, ...newTicketData.images].forEach(image => {
+                        imagesMap.set(image._id, image);
+                    });
 
+                    [...prevTicketData.audioClips, ...newTicketData.audioClips].forEach(audio => {
+                        audiosMap.set(audio._id, audio);
+                    });
+
+                    const updatedImages = Array.from(imagesMap.values());
+                    const updatedAudios = Array.from(audiosMap.values());
                     return {
                         ...newTicketData,
                         images: updatedImages,
+                        audioClips: updatedAudios
                     };
                 });
 
@@ -152,10 +160,14 @@ const UserInfo = ({ userInfo, status }) => {
                 <div className="pr-8 pl-4 py-2 bg-[#242424] text-white rounded-full  translate-x-7 hidden sm:flex" >
                     <h3 className="font-semibold" > {userInfo.displayName} </h3>
                 </div>
-                <div className="relative" >
-                    <Image src={pfpImg} alt="profile" width={50} height={50} className="rounded-full" />
-                    <span className={` w-4 h-4 absolute top-0 right-[-1%] rounded-full ${status === "active" ? "bg-green-400" : "bg-red-500"} `} />
-                </div>
+
+                <Suspense fallback={<div className="w-12 h-12 rounded-full bg-gray-300" />}>
+                    {pfpImg && <div className="relative" >
+                        <Image src={pfpImg} alt="profile" width={50} height={50} className="rounded-full" />
+                        <span className={` w-4 h-4 absolute top-0 right-[-1%] rounded-full ${status === "active" ? "bg-green-400" : "bg-red-500"} `} />
+                    </div>}
+                </Suspense>
+
             </div>
         </div>
     )

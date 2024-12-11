@@ -1,7 +1,7 @@
 import { ScrollArea } from "./ui/scroll-area";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export const ImageView = ({ files }) => {
     const [imgData, setImgData] = useState()
@@ -54,6 +54,15 @@ export const ImageView = ({ files }) => {
 
 export const AudioView = ({ files }) => {
 
+    const currentAudioRef = useRef(null); 
+
+    const handlePlay = (audioElement) => {
+        if (currentAudioRef.current && currentAudioRef.current !== audioElement) {
+            currentAudioRef.current.pause();
+        }
+        currentAudioRef.current = audioElement;
+    };
+
     return (
         <div className="p-6 pt-4 flex flex-col rounded-xl bg-white " >
             {files.length > 0 ? <>
@@ -65,7 +74,7 @@ export const AudioView = ({ files }) => {
                     <ul className="flex flex-col gap-4" >
                         {files.map((file, i) => (
                             <li key={i}>
-                                <audio controls={true} className="">
+                                <audio controls={true} className="" onPlay={(e) => handlePlay(e.target)} >
                                     <source src={file.url} type="audio/mp3" />
                                 </audio>
                             </li>
