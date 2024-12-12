@@ -12,7 +12,7 @@ const server_url = process.env.SERVER_URL || "https://surakshakawach-mobilebacke
 export default function ViewSOS() {
 
     const params = useSearchParams();
-    const ticketId = params.get("ticketId") || "467f65a6-894d-4022-9fb1-3ce26d457593";
+    const ticketId = params.get("ticketId") || "4d5c2663-69b0-4332-94a8-60d33bb39e1a";
     const firebaseUID = params.get("firebaseUID") || "u7TW7LzsjrZ8QkEPV2Ysa76JDJz1";
     const [getRequestFailed, setGetRequestFailed] = useState(false);
     const [userData, setUserData] = useState(undefined);
@@ -24,6 +24,7 @@ export default function ViewSOS() {
     async function getTicketDetails() {
         try {
             const { data: res } = await axios.get(server_url + "/api/v1/ticket", { params: { ticketId, firebaseUID } });
+            console.log(res)
             setUserData(res.data?.user);
             setTicketData(res.data?.ticket);
             setLocationData(res.data?.ticket?.locationInfo);
@@ -60,7 +61,6 @@ export default function ViewSOS() {
                     [...prevTicketData.audioClips, ...newTicketData.audioClips].forEach(audio => {
                         audiosMap.set(audio._id, audio);
                     });
-
                     const updatedImages = Array.from(imagesMap.values());
                     const updatedAudios = Array.from(audiosMap.values());
                     return {

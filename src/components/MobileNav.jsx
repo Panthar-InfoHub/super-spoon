@@ -2,18 +2,27 @@
 import { Image as ImageIcon, Volume2 } from 'lucide-react';
 import Image from "next/image";
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Drawer, DrawerContent, DrawerTrigger } from './ui/drawer';
 import { ScrollArea } from './ui/scroll-area';
 
 const MobileNav = ({ images, audios }) => {
 
+    const currentAudioRef = useRef(null);
     const snapPoints = [0.4, '355px', 1];
     const [snap, setSnap] = useState(snapPoints[0]);
     const [imgData, setImgData] = useState()
     const [isPreview, setisPreview] = useState(false)
     const [openDrawer1, setOpenDrawer1] = useState(false)
     const [openDrawer2, setOpenDrawer2] = useState(false)
+
+
+    const handlePlay = (audioElement) => {
+        if (currentAudioRef.current && currentAudioRef.current !== audioElement) {
+            currentAudioRef.current.pause();
+        }
+        currentAudioRef.current = audioElement;
+    };
 
     return (
         <div className='flex flex-col gap-4' >
@@ -80,7 +89,7 @@ const MobileNav = ({ images, audios }) => {
                                 <ul className="flex flex-col gap-4" >
                                     {audios.map((file, i) => (
                                         <li key={i}>
-                                            <audio controls={true} className="w-full">
+                                            <audio controls={true} className="w-full" onPlay={(e) => handlePlay(e.target)} >
                                                 <source src={file.url} type="audio/mp3" />
                                             </audio>
                                         </li>
