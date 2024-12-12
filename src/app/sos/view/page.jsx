@@ -12,8 +12,8 @@ const server_url = process.env.SERVER_URL || "https://surakshakawach-mobilebacke
 export default function ViewSOS() {
 
     const params = useSearchParams();
-    const ticketId = params.get("ticketId") || "4d5c2663-69b0-4332-94a8-60d33bb39e1a";
-    const firebaseUID = params.get("firebaseUID") || "u7TW7LzsjrZ8QkEPV2Ysa76JDJz1";
+    const ticketId = params.get("ticketId");
+    const firebaseUID = params.get("firebaseUID");
     const [getRequestFailed, setGetRequestFailed] = useState(false);
     const [userData, setUserData] = useState(undefined);
     const [ticketData, setTicketData] = useState(undefined);
