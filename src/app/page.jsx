@@ -178,7 +178,6 @@ export default function Home() {
                           )}
                         </p>
                     ))}
-                    <Link href="mailto:connect@pantharinfohub.com" className="underline" > connect@pantharinfohub.com </Link>
                   </div>
                 </div>
               </div>
