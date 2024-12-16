@@ -1,11 +1,11 @@
 "use client";
 import MapComponent from "./map";
-import { AudioView, ImageView } from "../../../components/ImageView";
+import { AudioView, ImageView } from "../../../components/my_components/ImageView";
 import axios from "axios";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
-import MobileNav from "../../../components/MobileNav";
+import MobileNav from "../../../components/my_components/MobileNav";
 
 const server_url = process.env.SERVER_URL || "https://surakshakawach-mobilebackend-192854867616.asia-south2.run.app";
 
